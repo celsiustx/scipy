@@ -583,7 +583,7 @@ class _cs_matrix(_data_matrix, _minmax_mixin, IndexMixin):
     # Reduce operations #
     #####################
 
-    def sum(self, axis=None, dtype=None, out=None):
+    def sum(self, axis=None, dtype=None, out=None, keepdims=False):
         """Sum the matrix over the given axis.  If the axis is None, sum
         over both rows and columns, returning a scalar.
         """
@@ -604,11 +604,11 @@ class _cs_matrix(_data_matrix, _minmax_mixin, IndexMixin):
             if out is not None and out.shape != ret.shape:
                 raise ValueError('dimensions do not match')
 
-            return ret.sum(axis=(), dtype=dtype, out=out)
+            return ret.sum(axis=(), dtype=dtype, out=out, keepdims=keepdims)
         # spmatrix will handle the remaining situations when axis
         # is in {None, -1, 0, 1}
         else:
-            return spmatrix.sum(self, axis=axis, dtype=dtype, out=out)
+            return spmatrix.sum(self, axis=axis, dtype=dtype, out=out, keepdims=keepdims)
 
     sum.__doc__ = spmatrix.sum.__doc__
 
