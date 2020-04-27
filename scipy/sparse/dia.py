@@ -194,7 +194,7 @@ class dia_matrix(_data_matrix):
     getnnz.__doc__ = spmatrix.getnnz.__doc__
     count_nonzero.__doc__ = spmatrix.count_nonzero.__doc__
 
-    def sum(self, axis=None, dtype=None, out=None):
+    def sum(self, axis=None, dtype=None, out=None, keepdims=False):
         validateaxis(axis)
 
         if axis is not None and axis < 0:
@@ -223,7 +223,7 @@ class dia_matrix(_data_matrix):
             row_sums = matrix(row_sums)
 
             if axis is None:
-                return row_sums.sum(dtype=dtype, out=out)
+                return row_sums.sum(dtype=dtype, out=out, keepdims=keepdims)
 
             if axis is not None:
                 row_sums = row_sums.T
@@ -233,7 +233,7 @@ class dia_matrix(_data_matrix):
         if out is not None and out.shape != ret.shape:
             raise ValueError("dimensions do not match")
 
-        return ret.sum(axis=(), dtype=dtype, out=out)
+        return ret.sum(axis=(), dtype=dtype, out=out, keepdims=keepdims)
 
     sum.__doc__ = spmatrix.sum.__doc__
 

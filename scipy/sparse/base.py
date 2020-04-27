@@ -948,7 +948,7 @@ class spmatrix(object):
         """
         return self.__class__(self, copy=True)
 
-    def sum(self, axis=None, dtype=None, out=None):
+    def sum(self, axis=None, dtype=None, out=None, keepdims=False):
         """
         Sum the matrix elements over a given axis.
 
@@ -1000,7 +1000,7 @@ class spmatrix(object):
             # sum over rows and columns
             return (self * asmatrix(np.ones(
                 (n, 1), dtype=res_dtype))).sum(
-                dtype=dtype, out=out)
+                dtype=dtype, out=out, keepdims=keepdims)
 
         if axis < 0:
             axis += 2
