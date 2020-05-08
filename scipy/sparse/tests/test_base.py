@@ -924,6 +924,41 @@ class _TestCommon(object):
             for j in range(len(matrices)):
                 check(dtype, j)
 
+    def test_sum_keepdims(self):
+        np.random.seed(1234)
+        dat_1 = matrix([[0, 1, 2],
+                        [3, -4, 5],
+                        [-6, 7, 9]])
+        dat_2 = np.random.rand(5, 5)
+        dat_3 = np.array([[]])
+        dat_4 = np.zeros((40, 40))
+        dat_5 = sparse.rand(5, 5, density=1e-2).A
+        matrices = [dat_1, dat_2, dat_3, dat_4, dat_5]
+
+        def check(dtype, j):
+            dat = matrix(matrices[j], dtype=dtype)
+            datsp = self.spmatrix(dat, dtype=dtype)
+            with np.errstate(over='ignore'):
+                assert_array_almost_equal(dat.sum(keepdims=True), datsp.sum(keepdims=True))
+                assert_equal(dat.sum(keepdims=True).dtype, datsp.sum(keepdims=True).dtype)
+                assert_(not np.isscalar(datsp.sum(axis=None, keepdims=True)))
+                assert_array_almost_equal(dat.sum(axis=None, keepdims=True),
+                                          datsp.sum(axis=None, keepdims=True))
+                assert_equal(dat.sum(axis=None, keepdims=True).dtype,
+                             datsp.sum(axis=None, keepdims=True).dtype)
+                assert_array_almost_equal(dat.sum(axis=0, keepdims=True), datsp.sum(axis=0, keepdims=True))
+                assert_equal(dat.sum(axis=0, keepdims=True).dtype, datsp.sum(axis=0, keepdims=True).dtype)
+                assert_array_almost_equal(dat.sum(axis=1, keepdims=True), datsp.sum(axis=1, keepdims=True))
+                assert_equal(dat.sum(axis=1, keepdims=True).dtype, datsp.sum(axis=1, keepdims=True).dtype)
+                assert_array_almost_equal(dat.sum(axis=-2, keepdims=True), datsp.sum(axis=-2, keepdims=True))
+                assert_equal(dat.sum(axis=-2, keepdims=True).dtype, datsp.sum(axis=-2, keepdims=True).dtype)
+                assert_array_almost_equal(dat.sum(axis=-1, keepdims=True), datsp.sum(axis=-1, keepdims=True))
+                assert_equal(dat.sum(axis=-1, keepdims=True).dtype, datsp.sum(axis=-1, keepdims=True).dtype)
+
+        for dtype in self.checked_dtypes:
+            for j in range(len(matrices)):
+                check(dtype, j)
+
     def test_sum_invalid_params(self):
         out = asmatrix(np.zeros((1, 3)))
         dat = matrix([[0, 1, 2],
