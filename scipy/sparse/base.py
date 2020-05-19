@@ -986,7 +986,7 @@ class spmatrix(object):
         numpy.matrix.sum : NumPy's implementation of 'sum' for matrices
 
         """
-        validateaxis(axis)
+        axis = validateaxis(axis)
 
         # We use multiplication by a matrix of ones to achieve this.
         # For some sparse matrix formats more efficient methods are
