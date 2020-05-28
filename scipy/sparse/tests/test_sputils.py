@@ -85,12 +85,11 @@ class TestSparseUtils(object):
         assert_equal(sputils.isdense(matrix([1])), True)
 
     def test_validateaxis(self):
-        assert_raises(TypeError, sputils.validateaxis, (0, 1))
         assert_raises(TypeError, sputils.validateaxis, 1.5)
         assert_raises(ValueError, sputils.validateaxis, 3)
 
         # These function calls should not raise errors
-        for axis in (-2, -1, 0, 1, None):
+        for axis in (-2, -1, 0, 1, None, (0, 1)):
             sputils.validateaxis(axis)
 
     def test_get_index_dtype(self):

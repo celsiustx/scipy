@@ -967,7 +967,6 @@ class _TestCommon(object):
         datsp = self.spmatrix(dat)
 
         assert_raises(ValueError, datsp.sum, axis=3)
-        assert_raises(TypeError, datsp.sum, axis=(0, 1))
         assert_raises(TypeError, datsp.sum, axis=1.5)
         assert_raises(ValueError, datsp.sum, axis=1, out=out)
 
