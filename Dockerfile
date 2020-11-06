@@ -1,7 +1,7 @@
 # Build Scipy fork
 
 # Upstream numpy image
-ARG BASE=celsiustx/numpy
+ARG BASE=celsiustx/numpy:c37eefe485f8dae2c32ba26559238c4c0e3cae11
 FROM $BASE
 
 WORKDIR /opt/src
